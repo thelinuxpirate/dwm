@@ -1,0 +1,5 @@
+#+title: Sleepy DWM
+
+* Patched Suckless Configurations
+Sleepy DWM is a repository that contains all of my personal Suckless Software configurations 
+and their patched versions. If you want to use them, clone this repository and then just `sudo make clean install`
