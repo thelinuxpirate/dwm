@@ -47,29 +47,29 @@ static char c000000[]                    = "#000000"; // placeholder value
 static char normfgcolor[]                = "#c5dde0";
 static char normbgcolor[]                = "#101419";
 static char normbordercolor[]            = "#202836";
-static char normfloatcolor[]             = "#c5db84";
+static char normfloatcolor[]             = "#bf4559";
 
 static char selfgcolor[]                 = "#c5dde0";
 static char selbgcolor[]                 = "#202836";
-static char selbordercolor[]             = "#908ce6";
+static char selbordercolor[]             = "#6eaae6";
 static char selfloatcolor[]              = "#db8fd9";
 
 static char titlenormfgcolor[]           = "#c5dde0";
 static char titlenormbgcolor[]           = "#101419";
 static char titlenormbordercolor[]       = "#202836";
-static char titlenormfloatcolor[]        = "#c5db84";
+static char titlenormfloatcolor[]        = "#bf4559";
 
-static char titleselfgcolor[]            = "#908ce6";
+static char titleselfgcolor[]            = "#6eaae6";
 static char titleselbgcolor[]            = "#202836";
 static char titleselbordercolor[]        = "#101419";
 static char titleselfloatcolor[]         = "#db8fd9";
 
-static char tagsnormfgcolor[]            = "#76b97f";
+static char tagsnormfgcolor[]            = "#5d869e";
 static char tagsnormbgcolor[]            = "#101419";
 static char tagsnormbordercolor[]        = "#202836";
-static char tagsnormfloatcolor[]         = "#32bf61";
+static char tagsnormfloatcolor[]         = "#ad57a0";
 
-static char tagsselfgcolor[]             = "#908ce6";
+static char tagsselfgcolor[]             = "#8cc5e6";
 static char tagsselbgcolor[]             = "#202836";
 static char tagsselbordercolor[]         = "#101419";
 static char tagsselfloatcolor[]          = "#db8fd9";
@@ -79,10 +79,10 @@ static char hidselfgcolor[]              = "#c5dde0";
 static char hidnormbgcolor[]             = "#151e2e";
 static char hidselbgcolor[]              = "#151e2e";
 
-static char urgfgcolor[]                 = "#70de66";
+static char urgfgcolor[]                 = "#8cc5e6";
 static char urgbgcolor[]                 = "#151e2e";
 static char urgbordercolor[]             = "#c5dde0";
-static char urgfloatcolor[]              = "#908ce6";
+static char urgfloatcolor[]              = "#bf4559";
 
 static char *colors[][ColCount] = {
   /*                       fg                bg                border                float */
@@ -135,10 +135,10 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"󰮠", "", "", "", "", "", "", "", ""},
-    [ALTERNATIVE_TAGS] = {"󰮠", "", "", "", "", "", "",
+    [DEFAULT_TAGS] = {"", "", "", "", "", "󰍳", "", "", ""},
+    [ALTERNATIVE_TAGS] = {"", "", "", "", "", "󰍳", "",
                           "", ""},
-    [ALT_TAGS_DECORATION] = {"󰮠", "", "", "", "", "", "",
+    [ALT_TAGS_DECORATION] = {"", "", "", "", "", "󰍳", "",
                              "", ""},
 };
 
@@ -218,7 +218,6 @@ static const Layout layouts[] = {
   { "HHH",      grid },
 };
 
-
 /* key definitions */
 #define MODKEY Mod4Mask
 #define TAGKEYS(KEY,TAG) \
@@ -226,8 +225,6 @@ static const Layout layouts[] = {
   { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
   { MODKEY|ShiftMask,             KEY,      combotag,       {.ui = 1 << TAG} }, \
   { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
@@ -244,8 +241,8 @@ static const char *dmenucmd[] = {
   "-sf", selfgcolor,
   NULL
 };
-static const char *termcmd[] = {"kitty", NULL};
-static const char *browsercmd[] = {"./System/Applications/Firefox-Dev/firefox", NULL};
+static const char *termcmd[] = {"wezterm", NULL};
+static const char *browsercmd[] = {"./System/Applications/Firefox-Developer-Edition/firefox", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -261,12 +258,13 @@ static const Key keys[] = {
   // Applications
   { MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
   { MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
+  { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
+  { MODKEY,                       XK_m,          spawn,                  SHCMD("./System/Applications/Minecraft-Launcher/minecraft") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
   { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("emacsclient -c") },
-  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord") },
-  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("spotify") },
-  { MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD("pavucontrol") },  
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
+  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("./.nix-profile/bin/discord") },
+  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("./.nix-profile/bin/spotify") },
   { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("./System/Applications/Godot_v4/Godot-mono.x86_64") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
   
@@ -287,71 +285,62 @@ static const Key keys[] = {
   // Master
   { MODKEY,                       XK_i,          incnmaster,             {.i = +1 } },
   { MODKEY,                       XK_o,          incnmaster,             {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_Return,     zoom,                   {0} },
-  // Window Size
-  { MODKEY,                       XK_h,          setmfact,               {.f = -0.02} },
-  { MODKEY,                       XK_l,          setmfact,               {.f = +0.02} },
-  { MODKEY,                       XK_u,          incrgaps,               {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_u,          incrgaps,               {.i = -1 } },
-  { Mod1Mask,                     XK_i,          incrigaps,              {.i = +1 } },
-  { Mod1Mask|ShiftMask,           XK_i,          incrigaps,              {.i = -1 } },
-  { Mod1Mask,                     XK_o,          incrogaps,              {.i = +1 } },
-  { Mod1Mask|ShiftMask,           XK_o,          incrogaps,              {.i = -1 } },
-  { MODKEY,                       XK_r,          defaultgaps,            {0} },
-  { MODKEY|Mod1Mask,              XK_r,          togglegaps,             {0} },
-  // Misc
-  { MODKEY|ShiftMask,             XK_f,          togglefakefullscreen,   {0} },
-  { MODKEY,                       XK_v,          switchcol,              {0} },
-  
-  // Layouts
-  { MODKEY,                       XK_t,          setlayout,              {.v = &layouts[0]} },
-  { MODKEY,                       XK_e,          setlayout,              {.v = &layouts[3]} },
-  { MODKEY,                       XK_y,          setlayout,              {.v = &layouts[6]} },
-  { MODKEY,                       XK_m,          setlayout,              {.v = &layouts[4]} },
-  { MODKEY,                       XK_f,          fullscreen,             {0} },
-  { MODKEY|ShiftMask,             XK_space,      togglefloating,         {0} },
-  
-  // ScratchPads
-  { MODKEY,                       XK_grave,      togglescratch,          {.ui = 0 } },
-  { MODKEY|ControlMask,           XK_grave,      setscratch,             {.ui = 0 } },
-  { MODKEY|ShiftMask,             XK_grave,      removescratch,          {.ui = 0 } },
+  {MODKEY | ShiftMask, XK_Return, zoom, {0}},
+    // Window Size
+    {MODKEY, XK_h, setmfact, {.f = -0.02}},
+    {MODKEY, XK_l, setmfact, {.f = +0.02}},
+    {MODKEY, XK_u, incrgaps, {.i = +1}},
+    {MODKEY | ShiftMask, XK_u, incrgaps, {.i = -1}},
+    {Mod1Mask, XK_i, incrigaps, {.i = +1}},
+    {Mod1Mask | ShiftMask, XK_i, incrigaps, {.i = -1}},
+    {Mod1Mask, XK_o, incrogaps, {.i = +1}},
+    {Mod1Mask | ShiftMask, XK_o, incrogaps, {.i = -1}},
+    {MODKEY, XK_r, defaultgaps, {0}},
+    {MODKEY | Mod1Mask, XK_r, togglegaps, {0}},
+    // Misc
+    {MODKEY | ShiftMask, XK_f, togglefakefullscreen, {0}},
+    {MODKEY, XK_v, switchcol, {0}},
 
-  { MODKEY,                       XK_0,          view,                   {.ui = ~SPTAGMASK } },
-  { MODKEY,                       XK_comma,      focusmon,               {.i = -1 } },
-  { MODKEY,                       XK_period,     focusmon,               {.i = +1 } },
-  { MODKEY|ShiftMask,             XK_comma,      tagmon,                 {.i = -1 } },
-  { MODKEY|ShiftMask,             XK_period,     tagmon,                 {.i = +1 } },
-  { MODKEY|ControlMask,           XK_comma,      cyclelayout,            {.i = -1 } },
-  { MODKEY|ControlMask,           XK_period,     cyclelayout,            {.i = +1 } },
+    // Layouts
+    {MODKEY, XK_t, setlayout, {.v = &layouts[0]}},
+    {MODKEY, XK_e, setlayout, {.v = &layouts[3]}},
+    {MODKEY, XK_y, setlayout, {.v = &layouts[6]}},
+    {MODKEY, XK_c, setlayout, {.v = &layouts[4]}},
+    {MODKEY, XK_f, fullscreen, {0}},
+    {MODKEY | ShiftMask, XK_space, togglefloating, {0}},
 
-  // XF86_Multi-Media
-  { 0,                            XF86XK_AudioRaiseVolume,          spawn,                  SHCMD("amixer set Master 2%+") },
-  { 0,                            XF86XK_AudioLowerVolume,          spawn,                  SHCMD("amixer set Master 2%-") },
-  { 0,                            XF86XK_AudioMute,                 spawn,                  SHCMD("amixer set Master toggle") },
+    // ScratchPads
+    {MODKEY, XK_grave, togglescratch, {.ui = 0}},
+    {MODKEY | ControlMask, XK_grave, setscratch, {.ui = 0}},
+    {MODKEY | ShiftMask, XK_grave, removescratch, {.ui = 0}},
 
-  { 0,                            XF86XK_AudioPlay,                 spawn,                  SHCMD("playerctl play-pause") },
-  { 0,                            XF86XK_AudioNext,                 spawn,                  SHCMD("playerctl next") },
-  { 0,                            XF86XK_AudioPrev,                 spawn,                  SHCMD("playerctl previous") },
+    {MODKEY, XK_0, view, {.ui = ~SPTAGMASK}},
+    {MODKEY, XK_comma, focusmon, {.i = -1}},
+    {MODKEY, XK_period, focusmon, {.i = +1}},
+    {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
+    {MODKEY | ShiftMask, XK_period, tagmon, {.i = +1}},
+    {MODKEY | ControlMask, XK_comma, cyclelayout, {.i = -1}},
+    {MODKEY | ControlMask, XK_period, cyclelayout, {.i = +1}},
 
-  { 0,                            XF86XK_MonBrightnessUp,           spawn,                  SHCMD("brightnessctl set +200") },
-  { 0,                            XF86XK_MonBrightnessDown,         spawn,                  SHCMD("brightnessctl set 200-") },
-  { 0,                            XF86XK_Explorer,                  spawn,                  SHCMD("flameshot gui") },
+    // XF86_Multi-Media
+    {0, XF86XK_AudioRaiseVolume, spawn, SHCMD("amixer set Master 2%+")},
+    {0, XF86XK_AudioLowerVolume, spawn, SHCMD("amixer set Master 2%-")},
+    {0, XF86XK_AudioMute, spawn, SHCMD("amixer set Master toggle")},
 
-  { 0,                            XF86XK_Search,                    spawn,                  {.v = dmenucmd } },
-  { 0,                            XF86XK_HomePage,                  setlayout,              {.v = &layouts[0]}},
+    {0, XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause")},
+    {0, XF86XK_AudioNext, spawn, SHCMD("playerctl next")},
+    {0, XF86XK_AudioPrev, spawn, SHCMD("playerctl previous")},
 
-  
-  TAGKEYS(                        XK_1,                                  0)
-      TAGKEYS(                        XK_2,                                  1)
-      TAGKEYS(                        XK_3,                                  2)
-      TAGKEYS(                        XK_4,                                  3)
-      TAGKEYS(                        XK_5,                                  4)
-      TAGKEYS(                        XK_6,                                  5)
-      TAGKEYS(                        XK_7,                                  6)
-      TAGKEYS(                        XK_8,                                  7)
-      TAGKEYS(                        XK_9,                                  8)
-};
+    {0, XF86XK_MonBrightnessUp, spawn, SHCMD("brightnessctl set +200")},
+    {0, XF86XK_MonBrightnessDown, spawn, SHCMD("brightnessctl set 200-")},
+    {0, XF86XK_Explorer, spawn, SHCMD("flameshot gui")},
 
+    {0, XF86XK_Search, spawn, {.v = dmenucmd}},
+    {0, XF86XK_HomePage, setlayout, {.v = &layouts[0]}},
+
+    TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
+        TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
+            TAGKEYS(XK_9, 8)};
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
