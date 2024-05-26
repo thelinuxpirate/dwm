@@ -135,11 +135,11 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"", "", "", "", "", "󰍳", "", "", ""},
-    [ALTERNATIVE_TAGS] = {"", "", "", "", "", "󰍳", "",
-                          "", ""},
-    [ALT_TAGS_DECORATION] = {"", "", "", "", "", "󰍳", "",
-                             "", ""},
+    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "", "", "", "󰕼"},
+    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "", "",
+                          "", "󰕼"},
+    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "", "",
+                             "", "󰕼"},
 };
 
 /* There are two options when it comes to per-client rules:
@@ -242,7 +242,7 @@ static const char *dmenucmd[] = {
   NULL
 };
 static const char *termcmd[] = {"wezterm", NULL};
-static const char *browsercmd[] = {"./System/Applications/Firefox-Developer-Edition/firefox", NULL};
+static const char *browsercmd[] = {"firefox-developer-edition", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -259,11 +259,11 @@ static const Key keys[] = {
   { MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
   { MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
   { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
-  { MODKEY,                       XK_m,          spawn,                  SHCMD("./System/Applications/Minecraft-Launcher/minecraft") },
+  { MODKEY,                       XK_m,          spawn,                  SHCMD("minecraft-launcher") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
-  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("emacsclient -c") },
+  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("neovide") },
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
-  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("./.nix-profile/bin/discord") },
+  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord && discover-overlay") },
   { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("./.nix-profile/bin/spotify") },
   { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("./System/Applications/Godot_v4/Godot-mono.x86_64") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
