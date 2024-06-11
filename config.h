@@ -41,6 +41,8 @@ static int fakefsindicatortype           = INDICATOR_PLUS;
 static int floatfakefsindicatortype      = INDICATOR_PLUS_AND_LARGER_SQUARE;
 static const char *fonts[]               = { "Comic Mono:size=12" };
 static const char dmenufont[]            = "Comic Mono:size=12";
+static const char dmenucol[]             = "10";
+static const char dmenugrid[]            = "5";
 
 static char c000000[]                    = "#000000"; // placeholder value
 
@@ -135,11 +137,9 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "", "", "", "󰕼"},
-    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "", "",
-                          "", "󰕼"},
-    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "", "",
-                             "", "󰕼"},
+    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
 };
 
 /* There are two options when it comes to per-client rules:
@@ -171,11 +171,8 @@ static const Rule rules[] = {
   RULE(.wintype = WTYPE "UTILITY", .isfloating = 1)
   RULE(.wintype = WTYPE "TOOLBAR", .isfloating = 1)
   RULE(.wintype = WTYPE "SPLASH", .isfloating = 1)
-  RULE(.class = "Gimp", .tags = 1 << 4)
-  RULE(.class = "Firefox", .tags = 1 << 7)
   RULE(.instance = "spterm", .tags = SPTAG(0), .isfloating = 1)
 };
-
 
 
 /* Bar rules allow you to configure what is shown where on the bar, as well as
@@ -235,14 +232,12 @@ static const char *dmenucmd[] = {
   "dmenu_run",
   "-m", dmenumon,
   "-fn", dmenufont,
-  "-nb", normbgcolor,
-  "-nf", normfgcolor,
-  "-sb", selbgcolor,
-  "-sf", selfgcolor,
+	"-l", dmenucol,
+	"-g", dmenugrid,
   NULL
 };
 static const char *termcmd[] = {"wezterm", NULL};
-static const char *browsercmd[] = {"firefox-developer-edition", NULL};
+static const char *browsercmd[] = {"firefox", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -259,13 +254,13 @@ static const Key keys[] = {
   { MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
   { MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
   { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
-  { MODKEY,                       XK_m,          spawn,                  SHCMD("minecraft-launcher") },
+  { MODKEY,                       XK_m,          spawn,                  SHCMD("flatpak run com.atlauncher.ATLauncher") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
-  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("neovide") },
+  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("emacsclient -c") },
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
   { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord && discover-overlay") },
-  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("./.nix-profile/bin/spotify") },
-  { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("./System/Applications/Godot_v4/Godot-mono.x86_64") },
+  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("flatpak run com.spotify.Client") },
+  { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("godot") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
   
   // Base Window Manager
@@ -289,14 +284,8 @@ static const Key keys[] = {
     // Window Size
     {MODKEY, XK_h, setmfact, {.f = -0.02}},
     {MODKEY, XK_l, setmfact, {.f = +0.02}},
-    {MODKEY, XK_u, incrgaps, {.i = +1}},
-    {MODKEY | ShiftMask, XK_u, incrgaps, {.i = -1}},
-    {Mod1Mask, XK_i, incrigaps, {.i = +1}},
-    {Mod1Mask | ShiftMask, XK_i, incrigaps, {.i = -1}},
-    {Mod1Mask, XK_o, incrogaps, {.i = +1}},
-    {Mod1Mask | ShiftMask, XK_o, incrogaps, {.i = -1}},
-    {MODKEY, XK_r, defaultgaps, {0}},
     {MODKEY | Mod1Mask, XK_r, togglegaps, {0}},
+
     // Misc
     {MODKEY | ShiftMask, XK_f, togglefakefullscreen, {0}},
     {MODKEY, XK_v, switchcol, {0}},
@@ -314,7 +303,6 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_grave, setscratch, {.ui = 0}},
     {MODKEY | ShiftMask, XK_grave, removescratch, {.ui = 0}},
 
-    {MODKEY, XK_0, view, {.ui = ~SPTAGMASK}},
     {MODKEY, XK_comma, focusmon, {.i = -1}},
     {MODKEY, XK_period, focusmon, {.i = +1}},
     {MODKEY | ShiftMask, XK_comma, tagmon, {.i = -1}},
@@ -340,7 +328,8 @@ static const Key keys[] = {
 
     TAGKEYS(XK_1, 0) TAGKEYS(XK_2, 1) TAGKEYS(XK_3, 2) TAGKEYS(XK_4, 3)
         TAGKEYS(XK_5, 4) TAGKEYS(XK_6, 5) TAGKEYS(XK_7, 6) TAGKEYS(XK_8, 7)
-            TAGKEYS(XK_9, 8)};
+            TAGKEYS(XK_9, 8) TAGKEYS(XK_0, 9) TAGKEYS(XK_minus, 10)
+             TAGKEYS(XK_equal, 11) };
 
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
