@@ -39,7 +39,7 @@ static int tiledindicatortype            = INDICATOR_NONE;
 static int floatindicatortype            = INDICATOR_TOP_LEFT_SQUARE;
 static int fakefsindicatortype           = INDICATOR_PLUS;
 static int floatfakefsindicatortype      = INDICATOR_PLUS_AND_LARGER_SQUARE;
-static const char *fonts[]               = { "Comic Mono:size=12" };
+static const char *fonts[]               = { "Comic Mono:size=12", "Arimo Nerd Font:size=12:antialias=true" };
 static const char dmenufont[]            = "Comic Mono:size=12";
 static const char dmenucol[]             = "10";
 static const char dmenugrid[]            = "5";
@@ -137,9 +137,9 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
 };
 
 /* There are two options when it comes to per-client rules:
@@ -198,7 +198,7 @@ static const BarRule barrules[] = {
 };
 
 /* layout(s) */
-static const float mfact     = 0.52; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.65; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -256,9 +256,12 @@ static const Key keys[] = {
   { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
   { MODKEY,                       XK_m,          spawn,                  SHCMD("flatpak run com.atlauncher.ATLauncher") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
-  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("emacsclient -c") },
+  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("./.cargo/bin/neovide") },
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
-  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord && discover-overlay") },
+  { MODKEY|Mod1Mask,              XK_d,          spawn,                  SHCMD("discover-overlay") },
+	{ MODKEY|ControlMask,           XK_d,          spawn,                  SHCMD("discover-overlay --close") },
+  //{ MODKEY,                       XK_d,          spawn,                  SHCMD("discover-overlay") },
+  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord") },
   { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("flatpak run com.spotify.Client") },
   { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("godot") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
