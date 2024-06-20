@@ -1,0 +1,11 @@
+/* Patches */
+#include "alpha.h"
+#include "background_image_x.h"
+#include "boxdraw.h"
+#include "opencopied.h"
+#include "font2.h"
+#include "fullscreen_x.h"
+#include "keyboardselect_reflow_st.h"
+#include "keyboardselect_reflow_x.h"
+#include "rightclicktoplumb_x.h"
+#include "st_embedder_x.h"
