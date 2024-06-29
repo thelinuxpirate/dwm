@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Comic Mono:pixelsize=12.75:antialias=true:autohint=true";
+static char *font = "Comic Mono:pixelsize=15.23:antialias=true:autohint=true";
 
 /* borderperc: percentage of cell width to use as a border
  *             0 = no border, 100 = border width is same as cell width */
@@ -126,45 +126,45 @@ unsigned int tabspaces = 4;
 
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
-	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+    /* 8 normal colors */
+    [0] = "#1a1b26", /* black   */
+    [1] = "#f7768e", /* red     */
+    [2] = "#9ece6a", /* green   */
+    [3] = "#e0af68", /* yellow  */
+    [4] = "#2ac3de", /* blue    */
+    [5] = "#bb9af7", /* magenta */
+    [6] = "#7dcfff", /* cyan    */
+    [7] = "#d5d6db", /* white   */
+                              
+    /* 8 bright colors */
+    [8]  = "#1a1b26", /* black   */
+    [9]  = "#f7768e", /* red     */
+    [10] = "#9ece6a", /* green   */
+    [11] = "#e0af68", /* yellow  */
+    [12] = "#2ac3de", /* blue    */
+    [13] = "#bb9af7", /* magenta */
+    [14] = "#7dcfff", /* cyan    */
+    [15] = "#cfc9c2", /* white   */
+    
+    [255] = 0,
 
-	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
-
-	[255] = 0,
-
-	/* more colors can be added after 255 to use with DefaultXX */
-	"#add8e6", /* 256 -> cursor */
-	"#555555", /* 257 -> rev cursor*/
-	"#000000", /* 258 -> bg */
-	"#e5e5e5", /* 259 -> fg */
+    /* special colors */
+    [256] = "#1a1b26", /* background */
+    [257] = "#cfc9c2", /* foreground */
+    "#cccccc",
+    "#555555",
 };
 
 /*
  * Default colors (colorname index)
  * foreground, background, cursor, reverse cursor
  */
-unsigned int defaultbg = 258;
-unsigned int defaultfg = 259;
+unsigned int defaultbg = 256;
+unsigned int defaultfg = 257;
 unsigned int defaultcs = 256;
 unsigned int defaultrcs = 257;
-unsigned int selectionfg = 258;
-unsigned int selectionbg = 259;
+unsigned int selectionfg = 257;
+unsigned int selectionbg = 256;
 /* If 0 use selectionfg as foreground in order to have a uniform foreground-color */
 /* Else if 1 keep original foreground-color of each cell => more colors :) */
 static int ignoreselfg = 1;
