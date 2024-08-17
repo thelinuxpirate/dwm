@@ -24,7 +24,7 @@ static const int focusonwheel            = 0;
 
 /* Status is to be shown on: -1 (all monitors), 0 (a specific monitor by index), 'A' (active monitor) */
 static const int statusmon               = 'A';
-static const char buttonbar[]            = "󰣨";
+static const char buttonbar[]            = "󰌽";
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int showsystray             = 1;   /* 0 means no systray */
 static const unsigned int ulinepad       = 5;   /* horizontal padding between the underline and tag */
@@ -137,9 +137,9 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"", "", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALTERNATIVE_TAGS] = {"", "", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALT_TAGS_DECORATION] = {"", "", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
 };
 
 /* There are two options when it comes to per-client rules:
@@ -237,7 +237,7 @@ static const char *dmenucmd[] = {
   NULL
 };
 static const char *termcmd[] = {"wezterm", NULL};
-static const char *browsercmd[] = {"brave-bin", NULL};
+static const char *browsercmd[] = {"firefox", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -254,12 +254,13 @@ static const Key keys[] = {
   { MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
   { MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
   { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
+  { MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD("./System/Applications/Pixelorama/Pixelorama.x86_64") },
   { MODKEY,                       XK_m,          spawn,                  SHCMD("./System/Applications/CurseForge/CurseForge.AppImage") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
   { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("neovide") },
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
   { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord") },
-  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("./.nix-profile/bin/spotify") },
+  { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("spotify") },
   { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("./System/Applications/Godot/Godot-Engine.x86_64") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
   
