@@ -9,7 +9,18 @@ let
 
       src = ./${app};
 
-      buildInputs = [ nixpkgs.xorg.libX11 nixpkgs.xorg.libXft ];
+      nativeBuildInputs = [ 
+        nixpkgs.patchelf 
+        nixpkgs.autoPatchelfHook 
+      ];
+
+      buildInputs = [ 
+        nixpkgs.xorg.libX11 
+        nixpkgs.xorg.libXft
+        nixpkgs.xorg.libXinerama
+        nixpkgs.xorg.xrdb
+        nixpkgs.alsa-lib
+      ];
 
       installPhase = ''
         make PREFIX=$out install
