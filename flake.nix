@@ -11,8 +11,8 @@
         inherit self;
         packages = {
           dmenu = import ./default.nix { inherit nixpkgs; app = "dmenu"; };
-          st = import ./default.nix { inherit nixpkgs; app = "st"; };
           slstatus = import ./default.nix { inherit nixpkgs; app = "slstatus"; };
+          st = import ./default.nix { inherit nixpkgs; app = "st"; };
         };
       };
     };
