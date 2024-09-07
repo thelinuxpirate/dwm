@@ -1,5 +1,5 @@
 # Build Suckless Util
-{ app, nixpkgs ? import <nixpkgs> { } }:
+{ app, nixpkgs }:
 
 let
   commonBuild = src:
