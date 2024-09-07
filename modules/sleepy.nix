@@ -25,7 +25,7 @@ in
     description = "Enable the Sleepy ST build";
   };
 
-  config = lib.mkIf config.dwm.enable {
+  config = {
     environment.systemPackages = lib.optionals config.sleepy.enableDmenu [
       dmenu
     ] ++ lib.optionals config.sleepy.enableSlstatus [
