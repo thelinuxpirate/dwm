@@ -9,7 +9,7 @@ let
 
       src = ./${app};
 
-      buildInputs = [ nixpkgs.libX11 nixpkgs.libXft ];
+      buildInputs = [ nixpkgs.xorg.libX11 nixpkgs.xorg.libXft ];
 
       installPhase = ''
         make PREFIX=$out install
