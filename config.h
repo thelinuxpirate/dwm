@@ -236,7 +236,7 @@ static const char *dmenucmd[] = {
 	"-g", dmenugrid,
   NULL
 };
-static const char *termcmd[] = {"wezterm", NULL};
+static const char *termcmd[] = {"alacritty", NULL};
 static const char *browsercmd[] = {"firefox", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
@@ -254,16 +254,16 @@ static const Key keys[] = {
   { MODKEY,                       XK_space,      spawn,                  {.v = dmenucmd } },
   { MODKEY,                       XK_Return,     spawn,                  {.v = termcmd } },
   { MODKEY,                       XK_p,          spawn,                  SHCMD("pavucontrol") },
-  { MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD("./System/Applications/Pixelorama/Pixelorama.x86_64") },
-  { MODKEY,                       XK_m,          spawn,                  SHCMD("./System/Applications/CurseForge/CurseForge.AppImage") },
+  { MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD("pixelorama") },
+  { MODKEY,                       XK_m,          spawn,                  SHCMD("prismlauncher") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
   { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("neovide") },
   { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
   { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord") },
   { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("spotify") },
-  { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("./System/Applications/Godot/Godot-Engine.x86_64") },
+  { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("godot4") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
-  
+
   // Base Window Manager
   { MODKEY|ShiftMask,             XK_q,          quit,                   {0} },
   { MODKEY,                       XK_w,          killclient,             {0} },
@@ -312,9 +312,9 @@ static const Key keys[] = {
     {MODKEY | ControlMask, XK_period, cyclelayout, {.i = +1}},
 
     // XF86_Multi-Media
-    {0, XF86XK_AudioRaiseVolume, spawn, SHCMD("amixer set Master 2%+")},
-    {0, XF86XK_AudioLowerVolume, spawn, SHCMD("amixer set Master 2%-")},
-    {0, XF86XK_AudioMute, spawn, SHCMD("amixer set Master toggle")},
+    {0, XF86XK_AudioRaiseVolume, spawn, SHCMD("pamixer -i 2")},
+    {0, XF86XK_AudioLowerVolume, spawn, SHCMD("pamixer -d 2")},
+    {0, XF86XK_AudioMute, spawn, SHCMD("pamixer -t")},
 
     {0, XF86XK_AudioPlay, spawn, SHCMD("playerctl play-pause")},
     {0, XF86XK_AudioNext, spawn, SHCMD("playerctl next")},
