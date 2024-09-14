@@ -10,10 +10,4 @@ pkgs.mkShell {
     pkgs.imlib2
     pkgs.alsa-lib
   ];
-
-  shellHook = ''
-    echo "Building Sleepy-DWM..."
-    make clean
-    make
-  '';
 }
