@@ -137,9 +137,9 @@ static Sp scratchpads[] = {
  * them. This works seamlessly with alternative tags and alttagsdecoration patches.
  */
 static char *tagicons[][NUMTAGS] = {
-    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
-    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [DEFAULT_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALTERNATIVE_TAGS] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
+    [ALT_TAGS_DECORATION] = {"", "󰈹", "", "", "", "󰸳", "", "", "", "", "", ""},
 };
 
 /* There are two options when it comes to per-client rules:
@@ -232,12 +232,13 @@ static const char *dmenucmd[] = {
   "dmenu_run",
   "-m", dmenumon,
   "-fn", dmenufont,
-	"-l", dmenucol,
-	"-g", dmenugrid,
+  "-l", dmenucol,
+  "-g", dmenugrid,
   NULL
 };
 static const char *termcmd[] = {"alacritty", NULL};
-static const char *browsercmd[] = {"firefox", NULL};
+static const char *editorcmd[] = {"emacsclient -c", NULL};
+static const char *browsercmd[] = {"zen", NULL};
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
@@ -257,9 +258,9 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_p,          spawn,                  SHCMD("pixelorama") },
   { MODKEY,                       XK_m,          spawn,                  SHCMD("prismlauncher") },
   { MODKEY|ShiftMask,             XK_b,          spawn,                  {.v = browsercmd } },
-  { MODKEY|ShiftMask,             XK_e,          spawn,                  SHCMD("neovide") },
-  { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("thunar") },
-  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("discord") },
+  { MODKEY|ShiftMask,             XK_e,          spawn,                  {.v = editorcmd } },
+  { MODKEY|ShiftMask,             XK_t,          spawn,                  SHCMD("nemo") },
+  { MODKEY|ShiftMask,             XK_d,          spawn,                  SHCMD("vesktop") },
   { MODKEY|ShiftMask,             XK_s,          spawn,                  SHCMD("spotify") },
   { MODKEY|ShiftMask,             XK_g,          spawn,                  SHCMD("godot4") },
   { MODKEY|ShiftMask,             XK_m,          spawn,                  SHCMD("./System/Applications/Slippi/Slippi-Launcher.AppImage") },
